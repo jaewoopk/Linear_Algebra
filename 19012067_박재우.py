@@ -18,8 +18,8 @@ for _ in range(n) :
     line = f.readline()
 lines = f.readlines()
 
-#for line in lines :
-#    a = 1
+for line in lines :
+    a = 1
 
 
 f.close
