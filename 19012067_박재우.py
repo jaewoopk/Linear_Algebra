@@ -4,13 +4,14 @@ f = open("Input01.txt", "r")
 
 data = f.readlines()
 
-print(data)
+list = []
 for i in range((int)(data[1][2])) :
-    list = re.findall("-?\d+", data[i + 2])
-    print(list)
+    one_line = re.findall("-?\d+", data[i + 2])
+    list.append(one_line)
 
-for i in range((int)(data[6][2])) :
-    list = re.findall("-?\d+", data[i + 7])
-    print(list)
+for i in range((int)(data[(int)(data[1][2]) + 3][2])) :
+    one_line = re.findall("-?\d+", data[i + (int)(data[1][2]) + 4])
+    list.append(one_line)
 
+print(list)
 f.close
