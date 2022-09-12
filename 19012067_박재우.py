@@ -1,25 +1,16 @@
-import pandas as pd
+import re
 
-df = pd.read_table("Input01.txt")
-print(df)
 f = open("Input01.txt", "r")
 
-n = (int)(f.readline().strip())
+data = f.readlines()
 
-for _ in range(n) :
-    list = []
-    line = f.readline()
-    for i in range((int)(line[2])) :
-        row = f.readline()
-        one_row = []
-        for j in range((int)(line[4])) :
-            one_row.append((row[2 * j]))
-        list.append(one_row)
-    line = f.readline()
-lines = f.readlines()
+print(data)
+for i in range((int)(data[1][2])) :
+    list = re.findall("-?\d+", data[i + 2])
+    print(list)
 
-for line in lines :
-    a = 1
-
+for i in range((int)(data[6][2])) :
+    list = re.findall("-?\d+", data[i + 7])
+    print(list)
 
 f.close
