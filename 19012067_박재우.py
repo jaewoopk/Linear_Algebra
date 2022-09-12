@@ -15,7 +15,7 @@ for i in range((int)(data[(int)(data[1][2]) + 3][2])) :
 
 file = open("Output02.txt", "w")
 
-if (data[1][2] != data[(int)(data[1][2]) + 3][2] and\
+if (data[1][2] != data[(int)(data[1][2]) + 3][2] or\
     data[1][4] != data[(int)(data[1][2]) + 3][4]) :
     file.writelines("+ 계산 불가")
 
