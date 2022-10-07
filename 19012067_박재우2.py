@@ -1,9 +1,7 @@
 import re
 
-from numpy import real
-
 def determinant(arr, x) :
-    ans = 0
+    answer = 0
     if (x == 3) :
         answer = arr[0][0] * (arr[1][1] * arr[2][2] - arr[1][2] * arr[2][1]) - (arr[0][1] * (arr[1][0] * arr[2][2] - arr[1][2] * arr[2][0])) + (arr[0][2] * (arr[1][0] * arr[2][1] - arr[1][1] * arr[2][0]))
         return answer
@@ -16,35 +14,47 @@ def determinant(arr, x) :
                     if (i == k) : continue
                     row.append(arr[j][k])
                 mini_arr.append(row)
-            team = determinant(mini_arr, x - 1)
+            det = determinant(mini_arr, x - 1)
             if (i % 2 == 0) :
-                ans += (arr[0][i] * team)
+                answer += (arr[0][i] * det)
             elif (i % 2 == 1) :
-                ans += (-1 * arr[0][i] * team)
-    return ans
+                answer += (-1 * arr[0][i] * det)
+    return answer
 
 f = open("Input.txt", "r")
 
-list = []
 data = f.readlines()
 length = len(data)
-count = 0
-real_answer = 0
+i = 0
 
-for i in range(length) :
-    one_line_str = re.findall("-?\d+", data[i])
-    one_line = [int(i) for i in one_line_str]
-    list.append(one_line)
+file = open("Output.txt", "w")
 
-count = len(one_line)
+for _ in range(3) :
+    list = []
+    while (i < length) :
+        one_line_str = re.findall("-?\d+", data[i])
+        i += 1
+        one_line = [int(val) for val in one_line_str]
+        if not one_line :
+            break
+        list.append(one_line)
 
-if (count != length) :
-    print("Square Matrix가 성립하지 않아, determinant를 구할 수 없습니다.")
-    exit()
+    if (len(list) != len(list[0])) :
+        file.writelines("Square Matrix가 성립하지 않아, determinant를 구할 수 없습니다.\n")
+    else :
+        det = determinant(list, len(list))
+        file.writelines((str)(det) + "\n")
 
-real_answer = determinant(list, count)
 
-print(real_answer)
+#count = len(one_line)
+
+#if (count != length) :
+#    print("Square Matrix가 성립하지 않아, determinant를 구할 수 없습니다.")
+#    exit()
+
+# real_answer = determinant(list, count)
+
+# print(real_answer)
 
 # 0 0 2 0
 # 1 2 17 -3
@@ -88,5 +98,5 @@ print(real_answer)
 #        result = ' '.join(str(i) for i in lines)
 #        file.writelines(result)
 
-#file.close()
+file.close()
 f.close()
