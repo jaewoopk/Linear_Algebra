@@ -1,11 +1,12 @@
 import re
 
-det = 0
+from numpy import real
 
 def determinant(arr, x) :
-    global det
+    ans = 0
     if (x == 3) :
-        return arr[0][0] * (arr[1][1] * arr[2][2] - arr[1][2] * arr[2][1]) - (arr[0][1] * (arr[1][0] * arr[2][2] - arr[1][2] * arr[2][0])) + (arr[0][2] * (arr[1][0] * arr[2][1] - arr[1][1] * arr[2][0]))
+        answer = arr[0][0] * (arr[1][1] * arr[2][2] - arr[1][2] * arr[2][1]) - (arr[0][1] * (arr[1][0] * arr[2][2] - arr[1][2] * arr[2][0])) + (arr[0][2] * (arr[1][0] * arr[2][1] - arr[1][1] * arr[2][0]))
+        return answer
     else :
         for i in range (x) :
             mini_arr = []
@@ -15,11 +16,12 @@ def determinant(arr, x) :
                     if (i == k) : continue
                     row.append(arr[j][k])
                 mini_arr.append(row)
-            print(mini_arr)
+            team = determinant(mini_arr, x - 1)
             if (i % 2 == 0) :
-                det += (arr[0][i] * determinant(mini_arr, x - 1))
-            else :
-                det += (-1 * arr[0][i] * determinant(mini_arr, x - 1))
+                ans += (arr[0][i] * team)
+            elif (i % 2 == 1) :
+                ans += (-1 * arr[0][i] * team)
+    return ans
 
 f = open("Input.txt", "r")
 
@@ -27,7 +29,7 @@ list = []
 data = f.readlines()
 length = len(data)
 count = 0
-ans = 0
+real_answer = 0
 
 for i in range(length) :
     one_line_str = re.findall("-?\d+", data[i])
@@ -40,12 +42,9 @@ if (count != length) :
     print("Square Matrix가 성립하지 않아, determinant를 구할 수 없습니다.")
     exit()
 
-if (count == 3) :
-    det = determinant(list, count)
-else :
-    determinant(list, count)
+real_answer = determinant(list, count)
 
-print(det)
+print(real_answer)
 
 # 0 0 2 0
 # 1 2 17 -3
@@ -55,6 +54,12 @@ print(det)
 # 2 -4 3
 # 3 1 2
 # 1 4 -1
+
+# 1 1 1 2 1
+# 1 2 2 1 1
+# 1 3 3 0 1
+# 1 2 2 2 2
+# 1 1 1 1 1
 
 #for i in range((int)(data[1][2])) :
 #    one_line = re.findall("-?\d+", data[i + 2])
